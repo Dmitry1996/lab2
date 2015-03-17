@@ -1,0 +1,70 @@
+
+#include <iostream>
+#include <vector>
+#include <stdlib.h>
+#include <clocale>
+
+using namespace std;
+
+/// \file
+
+
+
+/// \brief Quick sort function
+/*!
+\param[in] v V
+\param[in] begin0
+\param[in] end0
+\return 0
+*/
+//
+void quick_sort(vector <int> &v,int begin0, int end0)
+{
+	auto d=end0;//число относительно 
+	//которого будем сравнивать
+	auto begin=begin0;//указатель на начало
+	auto end=end0;//указатель на конец
+
+	do
+	{
+		while(v[begin]<d)
+			begin++;
+		while(v[end]>d)
+			end--;
+		if(begin<=end)
+		{
+			swap(v[begin],v[end]);// меняем местами
+			begin++;
+			end--;
+		}
+	}while(begin<=end);
+	if(begin0<end)
+		quick_sort(v,begin0,end);
+		if(begin<end0)
+			quick_sort(v,begin,end0);
+}
+
+/// \brief Main function
+
+int main()
+{ 
+	setlocale(LC_CTYPE,"rus");
+	vector <int> arr; //заводим массив
+	//заполняем его цифрами от 0 до 19
+	for(auto i=0;i<20;i++)
+		arr.push_back(i);
+	// перемешываем наш массив
+	for(size_t i=0;i<arr.size();i++)
+		swap(arr[i],arr[rand()%(arr.size()-i)+i]);
+	cout<<"Массив: ";
+	for(auto i=0;i<arr.size();i++)
+		cout<<arr[i]<<" ";
+	cout<<endl;
+	//функция быстрой сортировки
+	quick_sort(arr,0,arr.size()-1);
+	cout<<"Быстрая сортировка:";
+	for(auto i=0;i<arr.size();i++)
+		cout<<arr[i]<<" ";
+	cout<<endl;
+	return 0;
+}
